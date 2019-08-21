@@ -99,13 +99,14 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 }
 
 func setupRoutes() {
-	http.HandleFunc("/", handle)
+	http.Handle("/", http.FileServer(http.Dir("./static")))
 	http.HandleFunc("/upload", uploadFile)
 	http.ListenAndServe(":8080", nil)
 }
 
 func handle(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Hello, world!")
+
 }
 
 func main() {
